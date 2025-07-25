@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="theme-color" content="#3498db">
+  <title>Adivina el Número</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="estilos.css" />
+</head>
+<body>
+  <button id="boton-tema" onclick="cambiarTema()">🌙 Modo Oscuro</button>
+
+  <div class="selector-version">
+    <button class="tab-btn active" onclick="cambiarVersion('texto')">📝 Versión Texto</button>
+    <button class="tab-btn" onclick="cambiarVersion('canvas')">🎨 Versión Canvas</button>
+  </div>
+
+  <!-- Versión Texto -->
+  <div id="version-texto" class="juego-container">
+    <h1>🎯 Adivina el Número</h1>
+    <p>He pensado un número entre <span id="rango">1 y 100</span>. ¿Puedes adivinarlo?</p>
+
+    <label for="dificultad">Dificultad: </label>
+    <select id="dificultad" onchange="cambiarDificultad()">
+      <option value="50">Fácil (1-50)</option>
+      <option value="100" selected>Medio (1-100)</option>
+      <option value="200">Difícil (1-200)</option>
+    </select>
+
+    <input type="number" inputmode="numeric" pattern="[0-9]*" id="entrada" placeholder="Escribe un número" min="1" />
+    <button onclick="verificar()" class="animado">Adivinar</button>
+    <button onclick="reiniciar()">Reiniciar</button>
+
+    <p id="mensaje"></p>
+    <p id="intentos">Intentos: 0</p>
+    <p id="tiempo">Tiempo: 0s</p>
+    <p id="mejor-puntaje">Mejor puntaje: —</p>
+  </div>
+
+  <!-- Versión Canvas -->
+  <div id="version-canvas" class="juego-container" style="display: none; text-align: center;">
+    <h1>🎨 Adivina el Número (Canvas)</h1>
+    <p>Mueve el slider para adivinar. La barra muestra qué tan cerca estás.</p>
+
+    <canvas id="canvas" width="300" height="100"></canvas>
+    <br>
+    <input type="range" id="slider" min="1" max="100" value="50" step="1" 
+           style="width: 80%; height: 30px;" oninput="actualizarCanvas()" />
+    <span id="valor-slider">50</span>
+    <br><br>
+    <button onclick="verificarCanvas()" class="animado">Verificar</button>
+    <button onclick="reiniciarCanvas()">Reiniciar</button>
+    <p id="mensaje-canvas"></p>
+  </div>
+
+  <!-- Sonidos -->
+  <audio id="sonido-correcto" src="https://www.soundjay.com/buttons/sounds/button-1.mp3"></audio>
+  <audio id="sonido-incorrecto" src="https://www.soundjay.com/buttons/sounds/button-2.mp3"></audio>
+
+  <footer class="creditos">
+    Creado por <strong>Marcelo Aguero</strong> - Contacto: <a href="mailto:staysen2021@gmail.com">staysen2021@gmail.com</a>
+  </footer>
+
+  <script src="juego.js"></script>
+</body>
+</html>
